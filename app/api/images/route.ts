@@ -26,10 +26,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Add public URL to the response
+    // Add public and thumbnail URLs to the response
     const imageWithUrl = {
       ...result.result,
-      publicUrl: getImageUrl(result.result.id),
+      publicUrl: getImageUrl(result.result.id, "public"),
+      thumbnailUrl: getImageUrl(result.result.id, "thumbnail"),
     };
 
     return NextResponse.json({
@@ -63,10 +64,11 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Add public URLs to all images
+    // Add public and thumbnail URLs to all images
     const imagesWithUrls = result.result.images.map((image) => ({
       ...image,
-      publicUrl: getImageUrl(image.id),
+      publicUrl: getImageUrl(image.id, "public"),
+      thumbnailUrl: getImageUrl(image.id, "thumbnail"),
     }));
 
     return NextResponse.json({

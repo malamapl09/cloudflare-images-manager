@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { FiImage } from "react-icons/fi";
 import ImageUpload from "@/components/ImageUpload";
 import ImageGallery from "@/components/ImageGallery";
+import ThemeToggle from "@/components/ThemeToggle";
 import type { ImageData } from "@/types/cloudflare";
 import toast from "react-hot-toast";
 
@@ -50,18 +51,21 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center gap-3">
-            <FiImage className="w-8 h-8 text-blue-600" />
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                Cloudflare Images Manager
-              </h1>
-              <p className="text-sm text-gray-600 mt-1">
-                Upload, manage, and share your images
-              </p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <FiImage className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                  Cloudflare Images Manager
+                </h1>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  Upload, manage, and share your images
+                </p>
+              </div>
             </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>
@@ -70,21 +74,21 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Upload Section */}
         <section className="mb-12">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
-            Upload New Image
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            Upload New Images
           </h2>
           <ImageUpload onUploadSuccess={handleUploadSuccess} />
         </section>
 
         {/* Gallery Section */}
         <section>
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
             Your Images
           </h2>
 
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400"></div>
             </div>
           ) : (
             <ImageGallery images={images} onDelete={handleDelete} />
@@ -93,15 +97,15 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t mt-16">
+      <footer className="bg-white dark:bg-gray-800 border-t dark:border-gray-700 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-sm text-gray-600">
+          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
             Powered by{" "}
             <a
               href="https://www.cloudflare.com/products/cloudflare-images/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
             >
               Cloudflare Images
             </a>

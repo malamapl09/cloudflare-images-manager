@@ -41,7 +41,7 @@ export default function ImageGallery({ images, onDelete }: ImageGalleryProps) {
   if (images.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">
+        <p className="text-gray-500 dark:text-gray-400 text-lg">
           No images yet. Upload your first image to get started!
         </p>
       </div>
@@ -53,7 +53,7 @@ export default function ImageGallery({ images, onDelete }: ImageGalleryProps) {
       {/* Search Bar */}
       <div className="flex items-center justify-between">
         <SearchBar value={searchQuery} onChange={handleSearchChange} />
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           {filteredImages.length} {filteredImages.length === 1 ? "image" : "images"}
         </p>
       </div>
@@ -76,7 +76,7 @@ export default function ImageGallery({ images, onDelete }: ImageGalleryProps) {
         </>
       ) : (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-500 dark:text-gray-400 text-lg">
             No images found matching &quot;{searchQuery}&quot;
           </p>
         </div>

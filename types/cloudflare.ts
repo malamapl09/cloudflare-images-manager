@@ -44,6 +44,11 @@ export interface CloudflareError {
 }
 
 export interface ImageData extends CloudflareImage {
-  // Add any additional client-side fields if needed
+  // Client-side URLs for different variants
   publicUrl?: string;
+  thumbnailUrl?: string;
+  // Additional metadata
+  fileSize?: number;
+  width?: number;
+  height?: number;
 }
