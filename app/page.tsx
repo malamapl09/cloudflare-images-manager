@@ -1,12 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { FiImage } from "react-icons/fi";
 import ImageUpload from "@/components/ImageUpload";
 import ImageGallery from "@/components/ImageGallery";
-import ThemeToggle from "@/components/ThemeToggle";
 import type { ImageData } from "@/types/cloudflare";
 import toast from "react-hot-toast";
+
+const ThemeToggle = dynamic(() => import("@/components/ThemeToggle"), {
+  ssr: false,
+});
 
 export default function Home() {
   const [images, setImages] = useState<ImageData[]>([]);
