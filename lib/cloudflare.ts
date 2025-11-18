@@ -4,8 +4,29 @@ import type {
   CloudflareDeleteResponse,
 } from "@/types/cloudflare";
 
-const CLOUDFLARE_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID!;
-const CLOUDFLARE_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN!;
+// Validate environment variables
+function validateEnvVars() {
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+  const apiToken = process.env.CLOUDFLARE_API_TOKEN;
+  const accountHash = process.env.CLOUDFLARE_ACCOUNT_HASH;
+
+  if (!accountId || !apiToken || !accountHash) {
+    const missing = [];
+    if (!accountId) missing.push("CLOUDFLARE_ACCOUNT_ID");
+    if (!apiToken) missing.push("CLOUDFLARE_API_TOKEN");
+    if (!accountHash) missing.push("CLOUDFLARE_ACCOUNT_HASH");
+
+    throw new Error(
+      `Missing required environment variables: ${missing.join(", ")}. ` +
+      `Please configure these in your Vercel project settings under Environment Variables, ` +
+      `then redeploy the application.`
+    );
+  }
+
+  return { accountId, apiToken, accountHash };
+}
+
+const { accountId: CLOUDFLARE_ACCOUNT_ID, apiToken: CLOUDFLARE_API_TOKEN } = validateEnvVars();
 const BASE_URL = `https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/images/v1`;
 
 const headers = {
@@ -75,6 +96,6 @@ export async function deleteImage(imageId: string): Promise<CloudflareDeleteResp
  * Get the public URL for an image
  */
 export function getImageUrl(imageId: string, variant: string = "public"): string {
-  const accountHash = process.env.CLOUDFLARE_ACCOUNT_HASH!;
+  const { accountHash } = validateEnvVars();
   return `https://imagedelivery.net/${accountHash}/${imageId}/${variant}`;
 }
